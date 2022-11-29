@@ -25,7 +25,7 @@ export default function Featured({type}) {
                     </select>
                 </div>
             )}
-            <img src="https://i.ytimg.com/vi/FWG3Dfss3Jc/maxresdefault.jpg" alt="photo"/>
+            <img src="https://i.ytimg.com/vi/FWG3Dfss3Jc/maxresdefault.jpg" alt="background"/>
             <div className="featured__info">
                 <img src="https://help.redbubble.com/hc/article_attachments/360040246851/backtothefuturelogo.png" alt="movie title" />
 
