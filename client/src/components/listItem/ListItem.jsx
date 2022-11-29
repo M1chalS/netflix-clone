@@ -27,23 +27,23 @@ export const ListItem = ({index}) => {
                                  height={"140px"}
                     />
                     <div className={"itemInfo"}>
-                        <div className={"icons"}>
-                            <PlayArrow/>
-                            <Add/>
-                            <ThumbUpAltOutlined/>
-                            <ThumbDownAltOutlined/>
+                        <div className={"itemInfo__icons"}>
+                            <PlayArrow className={"icon"}/>
+                            <Add className={"icon"}/>
+                            <ThumbUpAltOutlined className={"icon"}/>
+                            <ThumbDownAltOutlined className={"icon"}/>
                         </div>
-                        <div className={"itemInfo--top"}>
+                        <div className={"itemInfo__top"}>
                             <span>2hours 44 minutes</span>
                             <span className={"limit"}>+13</span>
                             <span>2018</span>
                         </div>
-                        <div className={"desc"}>
+                        <div className={"itemInfo__desc"}>
                             Persecuti no cum no habitant oporteat neque ultricies bibendum ius. Atomorum faucibus
                             assueverit
                             hendrerit.
                         </div>
-                        <div className={"genre"}>
+                        <div className={"itemInfo__genre"}>
                             Action
                         </div>
                     </div>
