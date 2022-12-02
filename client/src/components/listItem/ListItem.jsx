@@ -1,13 +1,31 @@
 import "./listItem.scss";
 import {Add, PlayArrow, ThumbDownAltOutlined, ThumbUpAltOutlined} from "@mui/icons-material";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import ReactPlayer from "react-player";
+import axios from "axios";
 
-export const ListItem = ({index}) => {
+export const ListItem = ({index, item}) => {
 
     const [isHovered, setIsHovered] = useState(false);
-    const trailer = "https://youtu.be/Lt-U_t2pUHI";
+    const [movie, setMovie] = useState({});
 
+    useEffect(() => {
+        const getMovie = async () => {
+            try {
+                const res = await axios.get("movies/find/"+item, {
+                    headers: {
+                        token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzN2JiNmFmNWFiMDkwNmQ5MzE5YTBjZSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE2NzAwMjEyMDIsImV4cCI6MTY3MDQ1MzIwMn0.IhwBONB6p8IBlo1281gPSYCxZWNHTHAktX_u13M7EWg"
+                    },
+                });
+                setMovie(res.data);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        getMovie();
+    }, [item]);
+    
+    
     return (
 
         <div className="listItem"
@@ -16,12 +34,12 @@ export const ListItem = ({index}) => {
              onMouseLeave={() => setIsHovered(false)}
         >
             <img
-                src={"https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/226DB7C90442683C5F252E9578355540E75C0643925E5ACA9EF87B5AB7340977/scale?width=1200&aspectRatio=1.78&format=jpeg"}
+                src={movie.img}
                 alt={"video miniature"}/>
             {isHovered && (
                 <>
                     <ReactPlayer className={"video"}
-                                 url={trailer}
+                                 url={movie.trailer}
                                  playing={true}
                                  width={"100%"}
                                  height={"140px"}
@@ -34,17 +52,15 @@ export const ListItem = ({index}) => {
                             <ThumbDownAltOutlined className={"icon"}/>
                         </div>
                         <div className={"itemInfo__top"}>
-                            <span>2hours 44 minutes</span>
-                            <span className={"limit"}>+13</span>
-                            <span>2018</span>
+                            <span>{movie.duration}</span>
+                            <span className={"limit"}>+{movie.limit}</span>
+                            <span>{movie.year}</span>
                         </div>
                         <div className={"itemInfo__desc"}>
-                            Persecuti no cum no habitant oporteat neque ultricies bibendum ius. Atomorum faucibus
-                            assueverit
-                            hendrerit.
+                            {movie.desc}
                         </div>
                         <div className={"itemInfo__genre"}>
-                            Action
+                            {movie.genre}
                         </div>
                     </div>
                 </>
