@@ -1,7 +1,33 @@
 import "./featured.scss";
 import {InfoOutlined, PlayArrow} from "@mui/icons-material";
+import {useEffect, useState} from "react";
+import axios from "axios";
 
 export default function Featured({type}) {
+
+    const [content, setContent] = useState({});
+
+    useEffect(() => {
+        return () => {
+            const getRandomContent = async () => {
+                try {
+                    const res = await axios.get(`movies/random?type=${type}`, {
+                        headers: {
+                            token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzN2JiNmFmNWFiMDkwNmQ5MzE5YTBjZSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE2NzAwMjEyMDIsImV4cCI6MTY3MDQ1MzIwMn0.IhwBONB6p8IBlo1281gPSYCxZWNHTHAktX_u13M7EWg",
+                        },
+                    });
+                    setContent(res.data[0]);
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+
+            getRandomContent();
+
+        };
+    }, [type]);
+    
+    
     return (
         <div className="featured">
             {type && (
@@ -25,12 +51,12 @@ export default function Featured({type}) {
                     </select>
                 </div>
             )}
-            <img src="https://i.ytimg.com/vi/FWG3Dfss3Jc/maxresdefault.jpg" alt="background"/>
+            <img src={content.imgTitle} alt="background"/>
             <div className="featured__info">
-                <img src="https://help.redbubble.com/hc/article_attachments/360040246851/backtothefuturelogo.png" alt="movie title" />
+                <img src={content.img} alt="movie title" />
 
                 <span className="featured__info--desc">
-                    Qualisque tractatos ponderum dissentiunt constituto taciti augue consetetur quaestio. Consectetur latine phasellus scelerisque vim inceptos condimentum graeci possim. Ea vivamus fames quaeque magna salutatus libris. Consectetuer dicam rutrum netus feugiat iuvaret. Pro invenire voluptaria evertitur quaerendum.
+                    {content.desc}
                 </span>
                 <div className="featured__info--buttons">
                     <button className="play" >

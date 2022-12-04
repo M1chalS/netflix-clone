@@ -3,6 +3,7 @@ import {Add, PlayArrow, ThumbDownAltOutlined, ThumbUpAltOutlined} from "@mui/ico
 import {useEffect, useState} from "react";
 import ReactPlayer from "react-player";
 import axios from "axios";
+import {Link} from "react-router-dom";
 
 export const ListItem = ({index, item}) => {
 
@@ -12,22 +13,23 @@ export const ListItem = ({index, item}) => {
     useEffect(() => {
         const getMovie = async () => {
             try {
-                const res = await axios.get("movies/find/"+item, {
+                const res = await axios.get("/movies/find/"+item, {
                     headers: {
-                        token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzN2JiNmFmNWFiMDkwNmQ5MzE5YTBjZSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE2NzAwMjEyMDIsImV4cCI6MTY3MDQ1MzIwMn0.IhwBONB6p8IBlo1281gPSYCxZWNHTHAktX_u13M7EWg"
+                        token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzN2JiNmFmNWFiMDkwNmQ5MzE5YTBjZSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE2NzAwMjEyMDIsImV4cCI6MTY3MDQ1MzIwMn0.IhwBONB6p8IBlo1281gPSYCxZWNHTHAktX_u13M7EWg",
                     },
                 });
                 setMovie(res.data);
             } catch (err) {
                 console.log(err);
             }
-        }
+        };
         getMovie();
     }, [item]);
-    
-    
+
     return (
 
+
+        <Link to={{ pathname: "/watch"}} state={{ movie: movie }}>
         <div className="listItem"
              style={{left: isHovered && index * 225 - 50 + index * 2.5}}
              onMouseEnter={() => setIsHovered(true)}
@@ -66,5 +68,6 @@ export const ListItem = ({index, item}) => {
                 </>
             )}
         </div>
+        </Link>
     )
 }
