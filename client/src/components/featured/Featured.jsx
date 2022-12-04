@@ -3,7 +3,7 @@ import {InfoOutlined, PlayArrow} from "@mui/icons-material";
 import {useEffect, useState} from "react";
 import axios from "axios";
 
-export default function Featured({type}) {
+export default function Featured({type, setGenre}) {
 
     const [content, setContent] = useState({});
 
@@ -33,7 +33,7 @@ export default function Featured({type}) {
             {type && (
                 <div className="featured__category">
                     <span>{type === "movie" ? "Movies" : "Series"}</span>
-                    <select name="genre" id="genre" >
+                    <select name="genre" id="genre" onChange={e=>setGenre(e.target.value)} >
                         <option>Genre</option>
                         <option value="adventure">Adventure</option>
                         <option value="comedy">Comedy</option>
